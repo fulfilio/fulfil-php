@@ -59,6 +59,9 @@ class Fulfil {
     public static $instance = null;
 
     protected function getBaseUrl() {
+        if (!self::$instance or !self::$apiKey) {
+            trigger_error("Instance or Api Key is not configured.", E_USER_ERROR);
+        }
         return "https://" . self::$instance . ".fulfil.io/api/v1";
     }
 
