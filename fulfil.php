@@ -109,7 +109,7 @@ class Model extends Fulfil {
         $this->model = $model;
     }
 
-    public function getUrl() {
+    private function getUrl() {
         return $this->getBaseUrl() . "/model/" . $this->model;
     }
 
