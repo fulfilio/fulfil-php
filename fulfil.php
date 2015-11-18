@@ -66,13 +66,15 @@ class Fulfil {
     }
 
     protected function call($url, $method_type, $post_data=null) {
+        # TODO: handle context
         $process = curl_init();
         curl_setopt($process, CURLOPT_TIMEOUT, 30);
         curl_setopt($process, CURLOPT_RETURNTRANSFER, 1);
 
         curl_setopt($process, CURLOPT_HTTPHEADER, array(
             "Content-Type: application/json",
-            "x-api-key: " . self::$apiKey
+            "x-api-key: " . self::$apiKey,
+            "Content-Length: " . strlen($post_data)
         ));
 
         curl_setopt($process, CURLOPT_URL, $url);
@@ -93,7 +95,7 @@ class Fulfil {
         $http_code = curl_getinfo($process, CURLINFO_HTTP_CODE);
         if(!(200 <= $http_code && $http_code < 300)) {
             # Throw error for non 2XX code
-            trigger_error($response, E_USER_ERROR);
+            trigger_error($http_code . ": " . $response, E_USER_ERROR);
         }
 
         curl_close($process);
@@ -153,5 +155,16 @@ class Model extends Fulfil {
     public function delete($id) {
         $url = $this->getUrl() . "/" . $id;
         return $this->call($url, "DELETE");
+    }
+
+    public function run($method_name, $args, $id=null) {
+        if ($id) {
+            $url = $this->getUrl() . "/" . $id . "/" . $method_name;
+        }
+        else {
+            $url = $this->getUrl() . "/" . $method_name;
+        }
+        $data = json_encode($args);
+        return $this->call($url, "PUT", $data);
     }
 }

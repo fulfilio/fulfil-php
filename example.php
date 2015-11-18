@@ -46,4 +46,26 @@ $parties = $partyModel->search(
     array('name')
 );
 assert((count($parties) == 0));
+
+# Call specific method
+#   Calling: party.party.search([])
+print_r($partyModel->run(
+    'search',  # Method Name
+    [          # Array of arguments passed to this method
+        []     # Passing domain as empty as 1st argument. this should return all
+               #   parties.
+    ]
+));
+
+# Call specific method with an object as context
+#   Calling: (party.party,1).search([])      TODO: Use some better example
+print_r($partyModel->run(
+    'search',  # Method Name
+    [          # Array of arguments passed to this method
+        []     # Passing domain as empty as 1st argument. this should return all
+               #   parties.
+    ],
+    1          # Id of the record
+));
+
 print "Success";
