@@ -122,6 +122,12 @@ class Model extends Fulfil {
         $data = json_encode($params);
         return $this->call($this->getUrl(), "POST", $data);
     }
+    
+    public function write($id, $params) {
+        $data = json_encode($params);
+        $url = $this->getUrl() . "/" . $id;
+        return $this->call($url, "POST", $data);
+    }
 
     public function get($id) {
         $url = $this->getUrl() . "/" . $id;
