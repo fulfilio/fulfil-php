@@ -1,8 +1,5 @@
 <?php
-require('fulfil.php');
-
-Fulfil::$instance = "demo_instance";
-Fulfil::$apiKey = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
+require('config.php');
 
 # Get model for party/contact
 $partyModel = new Model('party.party');
