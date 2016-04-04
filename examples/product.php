@@ -72,7 +72,7 @@ $productData = [[
     "code" => "SKU-1",
     "list_price" => new DecimalType(2.0),
     "cost_price" => new DecimalType(1.0),
-    "attributes" => [
+    "attributes" => [  // Optional
         ['create', [[
             "attribute" => $productAttr['id'],
             "value_selection" => $productAttr['selection'][0]  // Adding 1st selection value
