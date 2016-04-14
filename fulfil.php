@@ -49,7 +49,7 @@ class DecimalType implements JsonSerializable {
     public function jsonSerialize() {
         return array(
             "__class__" => "Decimal",
-            "decimal" => $this->_val
+            "decimal" => (string)$this->_val
         );
     }
 }
